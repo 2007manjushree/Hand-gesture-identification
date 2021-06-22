@@ -1,4 +1,4 @@
-var prediction1, prediction2;
+var prediction1;
 
 Webcam.set({
     width : 350,
@@ -23,14 +23,6 @@ function modelLoaded(){
     console.log("The model is loaded");
 }
 
-function speak(){
-    var synth = window.speechSynthesis;
-    speakdata1 = "The first prediction is " + prediction1;
-    speakdata2 = "And the second prediction is " + prediction2;
-    utterThis = new SpeechSynthesisUtterance(speakdata1 + speakdata2);
-    synth.speak(utterThis);
-}
-
 function check(){
     img = document.getElementById("captured-image");
     classifier.classify(img,gotResult);
@@ -43,27 +35,15 @@ function gotResult(error,results){
     else{
         console.log(results);
         prediction1 = results[0].label;
-        prediction2 = results[1].label;
-        document.getElementById("emotion_name1").innerHTML = prediction1;
-        document.getElementById("emotion_name2").innerHTML = prediction2;
-        speak();
-        if(prediction1 == "Happy"){
-            document.getElementById("emoji_1").innerHTML = "&#128512";
+        document.getElementById("gesture_name1").innerHTML = prediction1;
+        if(prediction1 == "Protest"){
+            document.getElementById("emoji_1").innerHTML = "&#128073;";
         }
-        if(prediction1 == "Angry"){
-            document.getElementById("emoji_1").innerHTML = "&#128545;";
+        if(prediction1 == "Hi-Five"){
+            document.getElementById("emoji_1").innerHTML = "&#9995;";
         }
-        if(prediction1 == "Sad"){
-            document.getElementById("emoji_1").innerHTML = "&#128532;";
-        }
-        if(prediction2 == "Happy"){
-            document.getElementById("emoji_2").innerHTML = "&#128512";
-        }
-        if(prediction2 == "Angry"){
-            document.getElementById("emoji_2").innerHTML = "&#128545;";
-        }
-        if(prediction2 == "Sad"){
-            document.getElementById("emoji_2").innerHTML = "&#128532;";
+        if(prediction1 == "Right Point"){
+            document.getElementById("emoji_1").innerHTML = "&#128073;";
         }
     }
 }
